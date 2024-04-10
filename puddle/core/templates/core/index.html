@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+<!-- mt-6: margin top 6 (margin to the menu) -->
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-3xl text-center">Newest items</h2>
+        <!-- grid-cols-3: 3 columns in grid /gap-3 space between items -->
+        <div class="grid grid-cols-3 gap-4">
+            <!-- show items 3by3 using the loop for -->
+            {% for item in items %}
+                <div>
+                    <a href="{% url 'item:detail' item.id %}">
+                        <div>
+                            <!-- here we show the image (absolute URL) on the top for each object, with rounded top borders -->
+                            <img src="{{ item.image.url }}" class="rounded-t-xl bg-white">
+                        </div>
+                        <!--show name and prize. padding on the side, top and bot. bot rounded corners and bg white-->
+                        <div class="p-6 bg-white rounded-b-xl">
+                            <p class="text-xs text-gray-800 italic">{{ item.category }}</p>
+                            <h2 class="text-2xl">{{ item.name }}</h2>
+                            <p class="text-gray-500">Price: {{ item.price }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-3xl text-center">Categories</h2>
+        <!-- grid-cols-3: 3 columns in grid /gap-3 space between items -->
+        <div class="grid grid-cols-3 gap-3">
+            {% for category in categories %}
+                <div>
+                    <a href="#">
+                        <div class="p-6 bg-white rounded-b-xl">
+                            <h2 class="text-2xl">{{ category.name }}</h2>
+                            <p class="text-gray-500">{{ category.items.count }} items</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
